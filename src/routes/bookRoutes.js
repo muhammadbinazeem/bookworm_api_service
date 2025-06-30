@@ -7,10 +7,10 @@ const router = express.Router();
 
 router.post('/', protectRoute, async (req, res) => {
     try {
-        const { title, caption, rating, image } = req.body;
+        const { tittle, caption, rating, image } = req.body;
 
-        if (!image || !title || !rating || !caption) { 
-            return res.status(400).res({ message: "Please provide all fields"});
+        if (!image || !tittle || !rating || !caption) { 
+            return res.status(400).json({ message: "Please provide all fields"});
         }
 
         const uploadResponse = await cloudinary.uploader.upload(image);
@@ -21,7 +21,7 @@ router.post('/', protectRoute, async (req, res) => {
             caption,
             rating,
             image: imageUrl,
-            user: req.isPaused._id
+            user: req.user._id
         })
 
         await newBook.save()
@@ -38,7 +38,7 @@ router.get('/', protectRoute, async (req, res) => {
     try {
 
         const page = req.query.page || 1;
-        const limit = req.query.limit || 10;
+        const limit = req.query.limit || 2;
         const skip = (page - 1) * limit;
 
 

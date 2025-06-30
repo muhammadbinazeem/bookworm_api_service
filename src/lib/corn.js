@@ -12,7 +12,7 @@ const job = new CronJob("*/14 * * * *", function () {
             if (res.statusCode === 200) {
                 console.log("GET request sent successfully");
             } else {
-                console.log("GET request failed", res.statusCode);
+                console.log("health check failed", res.statusCode);
             }
         }).on("error", (e) => {
             console.log("Error while sending request", e);
